@@ -11,7 +11,4 @@ public class FDNetwork : NSObject{
         return "20200111"
     }
     
-    public class func GET(url: String, param: [String:Any]) {
-        
-    }
 }
