@@ -10,4 +10,5 @@ public class FDNetwork : NSObject{
     public class func getBuildVersion() -> String {
         return "20200111"
     }
+    
 }

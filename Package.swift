@@ -5,12 +5,19 @@ import PackageDescription
 
 let package = Package(
     name: "FDNetwork",
+    
+    platforms: [
+            .iOS(.v13),
+            .macOS(.v10_12)
+    ],
+    
     products: [
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
             name: "FDNetwork",
             targets: ["FDNetwork"]),
     ],
+    
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
@@ -21,7 +28,9 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "FDNetwork",
-            dependencies: []),
+            dependencies: [
+                "Alamofire",
+        ]),
         .testTarget(
             name: "FDNetworkTests",
             dependencies: ["FDNetwork"]),
