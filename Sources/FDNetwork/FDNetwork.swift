@@ -11,10 +11,15 @@ public class FDNetwork : NSObject{
         return "20200111"
     }
     
-    public class func test() {
-        AF.request("https://httpbin.org/get").response { response in
+    public class func GET(url : String, param : [String : Any]) {
+        AF.request(url,
+                   method: .get,
+                   parameters: param,
+                   encoder: JSONParameterEncoder.default).response { response in
             debugPrint(response)
         }
     }
+    
+    
     
 }
