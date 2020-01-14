@@ -3,6 +3,11 @@ import Alamofire
 import SwiftyJSON
 import HandyJSON
 
+public class FDResponseModel: HandyJSON {
+    var code : String!
+    required init() {}
+}
+
 public class FDNetwork : NSObject{
     //class func
     public class func getVersion() -> String {
@@ -13,7 +18,7 @@ public class FDNetwork : NSObject{
         return "20200111"
     }
     
-    public class func GET(url : String, param : [String : String], className : AnyClass, success : @escaping ((FDResponseModel)->()), failure : @escaping ((String)->())) {
+    public class func GET(url : String, param : [String : String], success : @escaping ((FDResponseModel)->()), failure : @escaping ((String)->())) {
         AF.request(url)
         .validate(statusCode: 200..<300)
         .validate(contentType: ["application/json"])
