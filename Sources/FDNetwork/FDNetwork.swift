@@ -18,7 +18,7 @@ public class FDNetwork : NSObject{
         return "20200111"
     }
     
-    public class func GET(url : String, param : [String : String], success : @escaping ((FDResponseModel)->()), failure : @escaping ((String)->())) {
+    public class func GET(url : String, param : [String : String], className : String success : @escaping ((FDResponseModel)->()), failure : @escaping ((String)->())) {
         AF.request(url)
         .validate(statusCode: 200..<300)
         .validate(contentType: ["application/json"])
@@ -26,8 +26,8 @@ public class FDNetwork : NSObject{
             switch response.result {
             case .success:
                 let json = JSON(response.data)
-                print(json)
-                if let object = FDResponseModel.deserialize(from: json.string) {
+                let modelClass = NSClassFromString(className)
+                if let object = modelClass.deserialize(from: json.string) {
                     success(object)
                 }else{
                     failure("解析模型失败")
