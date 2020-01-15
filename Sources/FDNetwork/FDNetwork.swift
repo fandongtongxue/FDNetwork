@@ -3,7 +3,7 @@ import Alamofire
 import SwiftyJSON
 import HandyJSON
 
-public class FDResponseModel: HandyJSON {
+open class FDResponseModel: HandyJSON {
     public var code : String!
     required public init() {}
 }
