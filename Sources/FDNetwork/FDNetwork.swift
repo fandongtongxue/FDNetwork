@@ -20,7 +20,7 @@ public class FDNetwork : NSObject{
     }
     
     public class func GET(url : String, param : [String : String], className : String, success : @escaping ((FDResponseModel)->()), failure : @escaping ((String)->())) {
-        AF.request(url, method: .get, parameters: param, encoder: JSONParameterEncoder, headers: nil, interceptor: nil)
+        AF.request(url, method: .get, parameters: param, encoder: JSONParameterEncoder.default, headers: nil, interceptor: nil)
         .validate(statusCode: 200..<300)
         .validate(contentType: ["application/json"])
         .responseData { response in
