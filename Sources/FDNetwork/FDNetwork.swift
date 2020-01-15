@@ -19,12 +19,12 @@ public class FDNetwork : NSObject{
     }
     
     public class func GET(url : String, param : [String : String]?, className : String, success : @escaping ((FDResponseModel)->()), failure : @escaping ((String)->())) {
-        AF.request(url, method: .get, parameters: param, encoder: JSONParameterEncoder.default, headers: nil, interceptor: nil)
+        AF.request(url, method: .get, parameters: param, encoder: URLEncodedFormParameterEncoder.default, headers: nil, interceptor: nil)
         .responseData { response in
             switch response.result {
             case .success:
                 let json = JSON(response.data)
-                let classT = NSClassFromString(className)! as! FDResponseModel.Type
+                let classT = NSClassFromString(className) as! FDResponseModel.Type
                 if let object = classT.deserialize(from: json.string) {
                     success(object)
                 }else{
