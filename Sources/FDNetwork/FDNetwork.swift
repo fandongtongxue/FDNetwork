@@ -4,11 +4,12 @@ import SwiftyJSON
 import HandyJSON
 
 public class FDResponseModel: HandyJSON {
-    var code : String!
-    required init() {}
+    public var code : String!
+    required public init() {}
 }
 
 public class FDNetwork : NSObject{
+    
     //class func
     public class func getVersion() -> String {
         return "1.1"
@@ -26,8 +27,8 @@ public class FDNetwork : NSObject{
             switch response.result {
             case .success:
                 let json = JSON(response.data)
-                let modelClass = NSClassFromString(className)
-                if let object = modelClass.deserialize(from: json.string) {
+                let classT = NSClassFromString(className)! as! FDResponseModel.Type
+                if let object = classT.deserialize(from: json.string) {
                     success(object)
                 }else{
                     failure("解析模型失败")
