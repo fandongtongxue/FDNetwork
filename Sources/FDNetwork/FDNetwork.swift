@@ -4,7 +4,6 @@ import SwiftyJSON
 import HandyJSON
 
 open class FDResponseModel: HandyJSON {
-    public var code : String!
     required public init() {}
 }
 
