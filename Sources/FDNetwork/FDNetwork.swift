@@ -11,11 +11,11 @@ public class FDResponseModel: HandyJSON {
 public class FDNetwork : NSObject{
     //class func
     public class func getVersion() -> String {
-        return "1.0"
+        return "1.1"
     }
     
     public class func getBuildVersion() -> String {
-        return "20200111"
+        return "20200115"
     }
     
     public class func GET(url : String, param : [String : String], className : String, success : @escaping ((FDResponseModel)->()), failure : @escaping ((String)->())) {
