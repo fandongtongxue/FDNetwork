@@ -18,7 +18,7 @@ public class FDNetwork : NSObject{
         return "20200115"
     }
     
-    public class func GET(url : String, param : [String : String], className : String, success : @escaping ((FDResponseModel)->()), failure : @escaping ((String)->())) {
+    public class func GET(url : String, param : [String : String]?, className : String, success : @escaping ((FDResponseModel)->()), failure : @escaping ((String)->())) {
         AF.request(url, method: .get, parameters: param, encoder: JSONParameterEncoder.default, headers: nil, interceptor: nil)
         .responseData { response in
             switch response.result {
