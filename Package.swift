@@ -21,7 +21,6 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
         .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.0.0-rc.3"),
-        .package(url: "https://github.com/alibaba/HandyJSON.git", from: "5.0.1"),
         .package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "5.0.0")
     ],
     targets: [
@@ -30,7 +29,7 @@ let package = Package(
         .target(
             name: "FDNetwork",
             dependencies: [
-            "Alamofire","HandyJSON","SwiftyJSON",
+            "Alamofire","SwiftyJSON",
         ]),
         .testTarget(
             name: "FDNetworkTests",

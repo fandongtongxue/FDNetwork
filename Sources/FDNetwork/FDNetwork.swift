@@ -3,10 +3,6 @@ import Alamofire
 import SwiftyJSON
 import HandyJSON
 
-open class FDResponseModel: HandyJSON {
-    required public init() {}
-}
-
 public class FDNetwork : NSObject{
     
     //class func
@@ -15,20 +11,19 @@ public class FDNetwork : NSObject{
     }
     
     public class func getBuildVersion() -> String {
-        return "20200115"
+        return "20200121"
     }
     
-    public class func GET(url : String, param : [String : String]?, className : String, success : @escaping ((FDResponseModel)->()), failure : @escaping ((String)->())) {
+    public class func GET(url : String, param : [String : String]?, success : @escaping (([String : Any])->()), failure : @escaping ((String)->())) {
         AF.request(url, method: .get, parameters: param, encoder: URLEncodedFormParameterEncoder.default, headers: nil, interceptor: nil)
         .responseData { response in
             switch response.result {
             case .success:
-                let json = JSON(response.data)
-                let classT = NSClassFromString(className) as! FDResponseModel.Type
-                if let object = classT.deserialize(from: json.string) {
-                    success(object)
+                let json = JSON(response.data ?? Data.init())
+                if (json.dictionaryObject?.values.count)! > 0{
+                    success(json.dictionaryObject!)
                 }else{
-                    failure("解析模型失败")
+                    failure("数据为空")
                 }
             case let .failure(error):
                 failure(error.localizedDescription)
