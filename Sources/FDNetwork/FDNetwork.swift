@@ -1,7 +1,6 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
-import HandyJSON
 import FDCommon
 
 public class FDNetwork : NSObject{
@@ -58,12 +57,10 @@ public class FDNetwork : NSObject{
     }
     
     public class func DOWNLOAD(url : String, path : String, param : [String : String]?, success : @escaping ((String)->()), failure : @escaping ((String)->())) {
-        AF.download(url, method: .get, parameters: param, encoding: URLEncodedFormParameterEncoder.default, headers: nil, interceptor: nil, to: { (fileURL, response) -> (destinationURL: URL, options: DownloadRequest.Options) in
-            print(fileURL)
-        })
-        .downloadProgress { (progress) in
+        AF.download(url)
+            .downloadProgress { (progress) in
             print(progress.completedUnitCount)
-            print(progress.totalUnitCount)
+            print(progress.totalUnitCount);
         }
     }
 }
