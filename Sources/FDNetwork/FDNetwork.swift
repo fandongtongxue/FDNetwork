@@ -35,5 +35,35 @@ public class FDNetwork : NSObject{
             }
         }
     }
-
+    
+    public class func POST(url : String, param : [String : String]?, success : @escaping (([String : Any])->()), failure : @escaping ((String)->())) {
+        AF.request(url, method: .post, parameters: param, encoder: URLEncodedFormParameterEncoder.default, headers: nil, interceptor: nil)
+        .responseData { response in
+            switch response.result {
+            case .success:
+                let json = JSON(response.data ?? Data.init())
+                if (json.dictionaryObject != nil) {
+                    if (json.dictionaryObject?.values.count)! > 0{
+                        success(json.dictionaryObject!)
+                    }else{
+                        failure(NSLocalizedString("Network.RequestFailed", comment: ""))
+                    }
+                }else{
+                    failure(NSLocalizedString("Network.RequestFailed", comment: ""))
+                }
+            case let .failure(error):
+                failure(error.localizedDescription)
+            }
+        }
+    }
+    
+    public class func DOWNLOAD(url : String, path : String, param : [String : String]?, success : @escaping ((String)->()), failure : @escaping ((String)->())) {
+        AF.download(url, method: .get, parameters: param, encoding: URLEncodedFormParameterEncoder.default, headers: nil, interceptor: nil, to: { (fileURL, response) -> (destinationURL: URL, options: DownloadRequest.Options) in
+            print(fileURL)
+        })
+        .downloadProgress { (progress) in
+            print(progress.completedUnitCount)
+            print(progress.totalUnitCount)
+        }
+    }
 }
