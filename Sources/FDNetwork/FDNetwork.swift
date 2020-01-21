@@ -59,8 +59,8 @@ public class FDNetwork : NSObject{
     public class func DOWNLOAD(url : String, path : String, param : [String : String]?, success : @escaping ((String)->()), failure : @escaping ((String)->())) {
         AF.download(url)
             .downloadProgress { (progress) in
-            print(progress.completedUnitCount)
-            print(progress.totalUnitCount);
+            print("已下载"+progress.completedUnitCount/1024/1024)
+            print("总共"+progress.totalUnitCount/1024/1024);
         }
     }
 }
