@@ -2,6 +2,7 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 import HandyJSON
+import FDCommon
 
 public class FDNetwork : NSObject{
     
@@ -20,10 +21,14 @@ public class FDNetwork : NSObject{
             switch response.result {
             case .success:
                 let json = JSON(response.data ?? Data.init())
-                if (json.dictionaryObject?.values.count)! > 0{
-                    success(json.dictionaryObject!)
+                if (json.dictionaryObject != nil) {
+                    if (json.dictionaryObject?.values.count)! > 0{
+                        success(json.dictionaryObject!)
+                    }else{
+                        failure(NSLocalizedString("Network.RequestFailed", comment: ""))
+                    }
                 }else{
-                    failure("数据为空")
+                    failure(NSLocalizedString("Network.RequestFailed", comment: ""))
                 }
             case let .failure(error):
                 failure(error.localizedDescription)
