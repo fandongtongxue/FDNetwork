@@ -61,5 +61,13 @@ public class FDNetwork : NSObject{
         let config = SessionConfiguration.init()
         let sessionManager = SessionManager.init(url, configuration: config)
         let task = sessionManager.download(url)
+        task?.progress(onMainQueue: true) { (task) in
+            let progress = task.progress.fractionCompleted
+            print("下载中, 进度：\(progress)")
+        }.success { (task) in
+            print("下载完成")
+        }.failure { (task) in
+            print("下载失败")
+        }
     }
 }
