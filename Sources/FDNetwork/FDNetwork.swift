@@ -72,7 +72,7 @@ public class FDNetwork : NSObject{
     
     static let manager = FDNetwork()
 
-    public class func defaultManager() ->FDNetwork {
+    private class func defaultManager() ->FDNetwork {
         return manager
     }
     
