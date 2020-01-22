@@ -1,7 +1,6 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
-import FDCommon
 import Tiercel
 
 public class FDNetwork : NSObject{
@@ -15,6 +14,13 @@ public class FDNetwork : NSObject{
         return "20200121"
     }
     
+    
+    /// GET Function
+    /// - Parameters:
+    ///   - url: url
+    ///   - param: param
+    ///   - success: successCallBack
+    ///   - failure: failureCallBack
     public class func GET(url : String, param : [String : String]?, success : @escaping (([String : Any])->()), failure : @escaping ((String)->())) {
         AF.request(url, method: .get, parameters: param, encoder: URLEncodedFormParameterEncoder.default, headers: nil, interceptor: nil)
         .responseData { response in
@@ -36,6 +42,13 @@ public class FDNetwork : NSObject{
         }
     }
     
+    
+    /// POST Function
+    /// - Parameters:
+    ///   - url: url
+    ///   - param: param
+    ///   - success: successCallBack
+    ///   - failure: failureCallBack
     public class func POST(url : String, param : [String : String]?, success : @escaping (([String : Any])->()), failure : @escaping ((String)->())) {
         AF.request(url, method: .post, parameters: param, encoder: URLEncodedFormParameterEncoder.default, headers: nil, interceptor: nil)
         .responseData { response in
@@ -57,21 +70,29 @@ public class FDNetwork : NSObject{
         }
     }
     
-    public static let manager = FDNetwork()
+    static let manager = FDNetwork()
 
     public class func defaultManager() ->FDNetwork {
         return manager
     }
     
-    public var sessionManager: SessionManager = {
+    private var downloadManager: SessionManager = {
         var configuration = SessionConfiguration()
         configuration.allowsCellularAccess = true
         let manager = SessionManager("default", configuration: configuration)
         return manager
     }()
     
+    /// Download Function
+    /// - Parameters:
+    ///   - url: url
+    ///   - path: path
+    ///   - param: param
+    ///   - progress: progressCallBack
+    ///   - success: successCallBack
+    ///   - failure: failureCallBack
     public class func DOWNLOAD(url : String, path : String, param : [String : String]?, progress : @escaping ((Double)->()), success : @escaping ((String)->()), failure : @escaping ((String)->())) {
-        let task = FDNetwork.defaultManager().sessionManager.download(url)
+        let task = FDNetwork.defaultManager().downloadManager.download(url)
         task?.progress(onMainQueue: true) { (task) in
             let percennt = task.progress.fractionCompleted
             progress(percennt)
