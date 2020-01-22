@@ -59,7 +59,7 @@ public class FDNetwork : NSObject{
     
     public class func DOWNLOAD(url : String, path : String, param : [String : String]?, progress : @escaping ((Float)->()), success : @escaping ((String)->()), failure : @escaping ((String)->())) {
         let config = SessionConfiguration.init()
-        let sessionManager = SessionManager.init(url, configuration: config)
+        let sessionManager = SessionManager.init(url.components(separatedBy: ".").last!, configuration: config)
         let task = sessionManager.download(url)
         task?.progress(onMainQueue: true) { (task) in
             let progress = task.progress.fractionCompleted
