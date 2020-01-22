@@ -57,17 +57,31 @@ public class FDNetwork : NSObject{
         }
     }
     
-    public class func DOWNLOAD(url : String, path : String, param : [String : String]?, progress : @escaping ((Float)->()), success : @escaping ((String)->()), failure : @escaping ((String)->())) {
-        let config = SessionConfiguration.init()
-        let sessionManager = SessionManager.init(url.components(separatedBy: ".").last!, configuration: config)
-        let task = sessionManager.download(url)
+    public static let manager = FDNetwork()
+
+    public class func defaultManager() ->FDNetwork {
+        return manager
+    }
+    
+    public var sessionManager: SessionManager = {
+        var configuration = SessionConfiguration()
+        configuration.allowsCellularAccess = true
+        let manager = SessionManager("default", configuration: configuration)
+        return manager
+    }()
+    
+    public class func DOWNLOAD(url : String, path : String, param : [String : String]?, progress : @escaping ((Double)->()), success : @escaping ((String)->()), failure : @escaping ((String)->())) {
+        let task = FDNetwork.defaultManager().sessionManager.download(url)
         task?.progress(onMainQueue: true) { (task) in
-            let progress = task.progress.fractionCompleted
-            print("下载中, 进度：\(progress)")
-        }.success { (task) in
-            print("下载完成")
-        }.failure { (task) in
-            print("下载失败")
+            let percennt = task.progress.fractionCompleted
+            progress(percennt)
+        }
+        .completion {(manager) in
+            if manager.status == .succeeded {
+                success("Download Success")
+            } else {
+                failure("DownLoad Failure:\(manager.status)")
+            }
         }
     }
 }
