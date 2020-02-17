@@ -100,6 +100,13 @@ public class FDNetwork : NSObject{
         .completion {(manager) in
             if manager.status == .succeeded {
                 success("Download Success")
+                let fileManager = FileManager.default
+                do{
+                    try fileManager.moveItem(atPath: task!.filePath, toPath: path);
+                    print("Succsee to move file.")
+                }catch{
+                    print("Failed to move file.")
+                }
             } else {
                 failure("DownLoad Failure:\(manager.status)")
             }
