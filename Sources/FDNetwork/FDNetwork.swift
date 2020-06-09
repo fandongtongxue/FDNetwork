@@ -7,11 +7,11 @@ public class FDNetwork : NSObject{
     
     //class func
     public class func getVersion() -> String {
-        return "1.1"
+        return "1.0"
     }
     
     public class func getBuildVersion() -> String {
-        return "20200121"
+        return "20200609"
     }
     
     
@@ -91,7 +91,7 @@ public class FDNetwork : NSObject{
     ///   - progress: progressCallBack
     ///   - success: successCallBack
     ///   - failure: failureCallBack
-    public class func DOWNLOAD(url : String, path : String, param : [String : String]?, progress : @escaping ((Double)->()), success : @escaping ((String)->()), failure : @escaping ((String)->())) {
+    public class func DOWNLOAD(url : String, path : String, progress : @escaping ((Double)->()), success : @escaping ((String)->()), failure : @escaping ((String)->())) {
         let task = FDNetwork.defaultManager().downloadManager.download(url)
         task?.progress(onMainQueue: true) { (task) in
             let percennt = task.progress.fractionCompleted
