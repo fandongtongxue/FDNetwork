@@ -7,7 +7,7 @@ let package = Package(
     name: "FDNetwork",
     
     platforms: [
-            .iOS(.v13),
+            .iOS(.v10),
     ],
     
     products: [
