@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Alamofire",
+        "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
+        "state": {
+          "branch": null,
+          "revision": "becd9a729a37bdbef5bc39dc3c702b99f9e3d046",
+          "version": "5.2.2"
+        }
+      },
+      {
+        "package": "FDNetwork",
+        "repositoryURL": "https://github.com/fandongtongxue/FDNetwork.git",
+        "state": {
+          "branch": "master",
+          "revision": "01c26711958b64e856f316ed66a30c8d084dfaeb",
+          "version": null
+        }
+      },
+      {
+        "package": "SwiftyJSON",
+        "repositoryURL": "https://github.com/SwiftyJSON/SwiftyJSON.git",
+        "state": {
+          "branch": null,
+          "revision": "2b6054efa051565954e1d2b9da831680026cd768",
+          "version": "5.0.0"
+        }
+      },
+      {
+        "package": "Tiercel",
+        "repositoryURL": "https://github.com/Danie1s/Tiercel.git",
+        "state": {
+          "branch": null,
+          "revision": "8cde56c05045c9d121b2901700dcb2d87f42ffec",
+          "version": "3.2.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
