@@ -28,12 +28,12 @@ class ViewController: UIViewController {
 //            print(msg)
 //        }
         
-        FDNetwork.DOWNLOAD(url: "https://dldir1.qq.com/qqfile/QQIntl/QQi_PC/QQIntl2.11.exe", path: "/Users/www1/Documents/1.exe", progress: { (progress) in
-            print(progress)
-        }, success: { (result) in
-            print(result)
-        }) { (error) in
-            print(error)
-        }
+//        FDNetwork.DOWNLOAD(url: "https://dldir1.qq.com/qqfile/QQIntl/QQi_PC/QQIntl2.11.exe", path: "/Users/www1/Documents/1.exe", progress: { (progress) in
+//            print(progress)
+//        }, success: { (result) in
+//            print(result)
+//        }) { (error) in
+//            print(error)
+//        }
     }
 }
