@@ -1,7 +1,6 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
-import Tiercel
 
 public class FDNetwork : NSObject{
     
@@ -74,42 +73,5 @@ public class FDNetwork : NSObject{
 
     private class func defaultManager() ->FDNetwork {
         return manager
-    }
-    
-    private var downloadManager: SessionManager = {
-        var configuration = SessionConfiguration()
-        configuration.allowsCellularAccess = true
-        let manager = SessionManager("default", configuration: configuration)
-        return manager
-    }()
-    
-    /// Download Function
-    /// - Parameters:
-    ///   - url: url
-    ///   - path: path
-    ///   - param: param
-    ///   - progress: progressCallBack
-    ///   - success: successCallBack
-    ///   - failure: failureCallBack
-    public class func DOWNLOAD(url : String, path : String, progress : @escaping ((Double)->()), success : @escaping ((String)->()), failure : @escaping ((String)->())) {
-        let task = FDNetwork.defaultManager().downloadManager.download(url)
-        task?.progress(onMainQueue: true) { (task) in
-            let percennt = task.progress.fractionCompleted
-            progress(percennt)
-        }
-        .completion {(manager) in
-            if manager.status == .succeeded {
-                success("Download Success")
-                let fileManager = FileManager.default
-                do{
-                    try fileManager.moveItem(atPath: task!.filePath, toPath: path);
-                    print("Succsee to move file.")
-                }catch{
-                    print("Failed to move file.")
-                }
-            } else {
-                failure("DownLoad Failure:\(manager.status)")
-            }
-        }
     }
 }
